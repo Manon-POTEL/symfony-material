@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme formMateriel 'bootstrap_5_layout.html.twig' %}
+
+{% block title %}Module Matériel{% endblock %}
+
+{% block body %}¨
+
+{{ form_start(formMateriel) }}
+
+    {{ form_row(formMateriel.nom, {'attr': {'placeholder': "Nom du matériel"}}) }}
+    {{ form_row(formMateriel.prix, {'attr': {'placeholder': "Le prix"}}) }}
+    {{ form_row(formMateriel.quantite, {'attr': {'placeholder': "Sa quantité"}}) }}
+
+    <button type="submit" class="btn btn-success">
+        {% if modification %}
+            Sauvegarder les modifications
+        {% else %}
+            Créer l'article
+        {% endif %}
+    </button>
+
+{{ form_end(formMateriel) }}
+
+{% endblock %}

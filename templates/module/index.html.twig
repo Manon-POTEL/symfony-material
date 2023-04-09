@@ -1,0 +1,103 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Module Matériel{% endblock %}
+
+{% block body %}
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css"/>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="//cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+
+<div>
+    <h1>Liste du matériel</h1>
+
+    <h1><button><a href="{{ path('create') }}">Créer un nouveau article</a></button></h1>
+
+    <h2><button><a href="/download">Export Excel</a></button></h2>
+    
+    <script>
+        $(document).ready( function () {
+            var table = $('#datatable').DataTable({
+            });
+        } );
+    </script>
+
+<table id="datatable" class="display" style="width:100%" Materiel $materiel>
+    <thead>
+        <tr>
+            <th>Identifiant</th>
+            <th>Nom du produit</th>
+            <th>Prix</th>
+            <th>Quantité</th>
+            <th>Date de Création</th>
+            <th>Voir la fiche produit</th>
+            <th>Modifier le produit</th>
+            <th>Décrémenter</th>
+            <th>PDF du produit</th>
+            <th>Effacer</th>
+        </tr>
+    </thead>
+    <tbody style="text-align: center;">
+        {% for material in materiel %}
+            <tr>
+                <td>{{ material.id }}</td>
+                <td>{{ material.nom }}</td>
+                <td>{{ material.prix }}</td>
+                <td>{{ material.quantite }}</td>
+                <td>{{ material.createdAt | date('d/m/Y') }}</td>
+                <td>
+                    <button id="{{material.id}}"> Voir le produit 
+                   
+                        <script>
+                            document.getElementById("{{material.id}}").addEventListener("click", function()
+                                { 
+                                    alert("{{ material.nom }} coûte {{ material.prix }} euros, est disponible en {{ material.quantite }} exemplaire(s). "); 
+                                }
+                            );
+                        </script>
+                      
+                    </button>
+                </td>
+
+                <td>
+                    <button><a href="{{ path('modif', { 'id': material.id})}}">Modifier</a></button>
+                </td>
+
+                <td>
+                    <button id="decrementer">-1
+                        <script>
+                            document.getElementById("decrementer").onclick = function () 
+                                {
+                                    console.log();
+                                }
+                            //Si on clique sur le bouton "-1", alors materiel.quantite-1
+                            //Si materiel.quantite = 0, la ligne doit se supprimer et envoyer un mail auto
+                        </script>
+                    </button>
+                </td>
+                <td>
+                    <button><a href="{{ path('pdf', { 'id': material.id})}}">Télécharger</a></button>
+                </td>
+                <td>
+                    <span>En cours</span>
+                    <button id="delete-{{material.id}}"><a href="{{ path('delete', { 'id': material.id})}}">Effacer</a></button>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+</div>
+{% endblock %}
+
+{% block javascripts %}
+
+    <script>
+
+        $( document ).ready(function() {
+            console.log( "ready!" );
+        });
+
+    </script>
+
+{% endblock %}
