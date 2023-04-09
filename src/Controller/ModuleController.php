@@ -92,7 +92,17 @@ class ModuleController extends AbstractController
      */
     public function delete(Materiel $materiel)
     {
-        //En cours
+        $em = $this->getDoctrine()->getManager();
+
+        $materiel = $this->getDoctrine()->getEntityManager()->getRepository('AppBundle:Materiel')->Find($id);
+
+        if($materiel != null)
+        {
+            $em->remove($materiel);
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('/');
     }
 
 

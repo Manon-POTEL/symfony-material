@@ -34,7 +34,6 @@
             <th>Modifier le produit</th>
             <th>Décrémenter</th>
             <th>PDF du produit</th>
-            <th>Effacer</th>
         </tr>
     </thead>
     <tbody style="text-align: center;">
@@ -51,7 +50,9 @@
                         <script>
                             document.getElementById("{{material.id}}").addEventListener("click", function()
                                 { 
-                                    alert("{{ material.nom }} coûte {{ material.prix }} euros, est disponible en {{ material.quantite }} exemplaire(s). "); 
+                                    alert(
+                                        "{{ material.nom }} coûte {{ material.prix }} euros, est disponible en {{ material.quantite }} exemplaire(s). "
+                                    ); 
                                 }
                             );
                         </script>
@@ -77,10 +78,6 @@
                 </td>
                 <td>
                     <button><a href="{{ path('pdf', { 'id': material.id})}}">Télécharger</a></button>
-                </td>
-                <td>
-                    <span>En cours</span>
-                    <button id="delete-{{material.id}}"><a href="{{ path('delete', { 'id': material.id})}}">Effacer</a></button>
                 </td>
             </tr>
         {% endfor %}
